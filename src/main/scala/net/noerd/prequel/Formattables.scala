@@ -31,7 +31,7 @@ class Nullable( val value: Option[ Formattable ] ) extends Formattable {
         value.map( _.escaped( formatter ) ).getOrElse( "null" )
     }
     override def addTo( statement: ReusableStatement ): Unit = {
-        statement.addNull
+        value.map(statement << _).getOrElse(statement.addNull)
     }
 }
 object Nullable {
